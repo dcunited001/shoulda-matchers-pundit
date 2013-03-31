@@ -19,8 +19,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "shoulda-matchers", "~> 1.5.6"
+  spec.add_dependency "shoulda-matchers", ">= 1.4.1"
   spec.add_dependency "pundit", "~> 0.2.0"
+
+  spec.add_dependency "builder", "~> 3.2.0"
+  spec.add_dependency "thor", "~> 0.18.1"
+  spec.add_dependency "bundler", "~> 1.3.3"
 
   spec.add_development_dependency "rake", ">= 0.9.2"
   spec.add_development_dependency "minitest-matchers", ">= 1.2.0"
