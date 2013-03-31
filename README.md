@@ -2,6 +2,11 @@
 
 # Shoulda::Matchers::Pundit
 
+### Issues:
+
+TODO: fix bundler dependancy problem!!
+TODO: fix failure message for wont (doesn't output failing actions)
+
 TODO: update readme: description, installation, usage
 TODO: Configure Travis
 TODO: Configure Appraisal?
