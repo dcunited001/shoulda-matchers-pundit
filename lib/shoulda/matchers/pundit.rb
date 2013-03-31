@@ -22,13 +22,14 @@ module Shoulda
 
         def initialize(*actions)
           @actions = actions
+          @failed_actions = []
         end
 
         def matches?(policy)
           @policy = policy
 
           actions.inject(true) do |pass, action|
-            pass = pass && match(action)
+            pass && match(action)
           end
         end
 
