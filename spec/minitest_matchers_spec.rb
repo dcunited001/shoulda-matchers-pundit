@@ -10,11 +10,8 @@ describe Shoulda::Matchers::Pundit::PermitMatcher do
     describe 'Guest' do
       let(:user) { nil }
 
-      wont { permit(:create) }
-      must { permit(:show) }
-      wont { permit(:update) }
-      wont { permit(:destroy) }
-
+      wont { permit :create, :update, :destroy }
+      must { permit :show }
     end
 
     describe 'Any User' do
@@ -22,22 +19,50 @@ describe Shoulda::Matchers::Pundit::PermitMatcher do
       let(:another_user) { User.new(1) }
       let(:article) { Article.new(another_user) }
 
-      must { permit(:create) }
-      must { permit(:show) }
-      wont { permit(:update) }
-      wont { permit(:destroy) }
-
+      must { permit :create, :show }
+      wont { permit :update, :destroy }
     end
 
     describe 'Article Creater' do
       let(:user) { User.new(1) }
 
-      must { permit(:create) }
-      must { permit(:show) }
-      must { permit(:update) }
-      wont { permit(:destroy) }
-
+      must { permit :create, :show, :update }
+      must { forbid :destroy }
     end
+
+  end
+end
+
+describe Shoulda::Matchers::Pundit::ForbidMatcher do
+
+  describe ArticlePolicy do
+
+    subject { ArticlePolicy.new(user, article) }
+    let(:article) { Article.new(user) }
+
+    describe 'Guest' do
+      let(:user) { nil }
+
+      wont { forbid :show }
+      must { forbid :create, :update, :destroy }
+    end
+
+    describe 'Any User' do
+      let(:user) { User.new(0) }
+      let(:another_user) { User.new(1) }
+      let(:article) { Article.new(another_user) }
+
+      wont { forbid :create, :show }
+      must { forbid :update, :destroy }
+    end
+
+    describe 'Article Creater' do
+      let(:user) { User.new(1) }
+
+      wont { forbid :create, :show, :update }
+      must { forbid :destroy }
+    end
+
   end
 end
 
