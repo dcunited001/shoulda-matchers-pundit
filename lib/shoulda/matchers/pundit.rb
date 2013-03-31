@@ -29,7 +29,7 @@ module Shoulda
           @policy = policy
 
           actions.inject(true) do |pass, action|
-            pass && match(action)
+            match?(action) && pass
           end
         end
 
@@ -53,7 +53,7 @@ module Shoulda
 
         private
 
-        def match(action)
+        def match?(action)
           p = permits? action
           append_failed(action) unless p
           p
@@ -76,7 +76,7 @@ module Shoulda
 
         private
 
-        def match(action)
+        def match?(action)
           f = forbids? action
           append_failed(action) unless f
           f
