@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dcunited001/shoulda-matchers-pundit.png)](https://travis-ci.org/dcunited001/shoulda-matchers-pundit)
+
 # Shoulda::Matchers::Pundit
 
 TODO: update readme: description, installation, usage
