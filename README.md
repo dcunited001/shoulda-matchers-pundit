@@ -38,4 +38,15 @@ TODO: Write usage instructions here
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+5. Create new Pull
+
+## Changelog
+
+#### 0.0.2
+
+* Added ForbidMatcher.  May add ForbiddenToMatcher later on.
+* Match multiple actions with a single permit/forbid statement
+
+#### 0.0.1
+
+* Added PermitMatcher & PermittedToMatcher.
