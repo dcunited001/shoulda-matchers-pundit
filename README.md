@@ -2,6 +2,12 @@
 
 # Shoulda::Matchers::Pundit
 
+Check out this Thunderbolt Labs blog post:
+
+> http://thunderboltlabs.com/posts/testing-pundit-policies-with-rspec
+
+A file to set up the matchers for rspec should be in the next version.  Until then, you can still add them yourself.
+
 ### Issues:
 
 TODO: fix bundler dependancy problem!!
@@ -23,19 +29,86 @@ TODO: find a way to remove the constraint that a policy's record must be named r
 
 Add this line to your application's Gemfile:
 
-    gem 'shoulda-matchers-pundit'
+```
+gem 'shoulda-matchers-pundit'
+```
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install shoulda-matchers-pundit
+```
+$ gem install shoulda-matchers-pundit
+```
+
+## Setup
+
+Add the following to either your test/spec helper or to a support/minitest_matchers.rb file:
+
+#### Minitest:
+
+```
+require 'shoulda/matchers/pundit/minitest'
+```
+
+#### Rspec: (adding in 0.0.3)
+
+```
+require 'shoulda/matchers/pundit/rspec'
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+To speed up your Policy tests, assert assert multiple actions in a single permit/forbid.
+
+The multiple actions are anded together, so use must/should, instead of wont/should_not.
+
+#### PermitMatcher:
+
+Ensures the policy permits a list of actions, given a user & record.
+
+```
+describe 'Article Creater' do
+  let(:user) { User.new(1) }
+
+  must { permit :create, :show, :update }
+end
+```
+
+#### ForbidMatcher:
+
+Ensures that the policy forbids a list of actions, given a user & record.
+
+```
+describe 'Guest' do
+  let(:user) { nil }
+
+  must { permit :show }
+  must { forbid :create, :update, :destroy }
+end
+
+```
+
+#### PermittedByMatcher:
+
+Tests from the user's perspective.  I prefer to use the permit/forbid matchers and may remove this one.
+
+```
+describe 'Article Creator' do
+  subject { User.new(1) }
+
+  describe ArticlePolicy do
+    must { be_permitted_to(:create).on(article) }
+    must { be_permitted_to(:show).on(article) }
+    must { be_permitted_to(:update).on(article) }
+    wont { be_permitted_to(:destroy).on(article) }
+  end
+end
+```
 
 ## Contributing
 
