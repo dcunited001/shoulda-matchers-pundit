@@ -10,7 +10,6 @@ describe Shoulda::Matchers::Pundit::PermitMatcher do
     describe 'Guest' do
       let(:user) { nil }
 
-      wont { permit :create, :update, :destroy }
       must { permit :show }
     end
 
@@ -20,14 +19,12 @@ describe Shoulda::Matchers::Pundit::PermitMatcher do
       let(:article) { Article.new(another_user) }
 
       must { permit :create, :show }
-      wont { permit :update, :destroy }
     end
 
     describe 'Article Creater' do
       let(:user) { User.new(1) }
 
       must { permit :create, :show, :update }
-      must { forbid :destroy }
     end
 
   end
@@ -43,7 +40,6 @@ describe Shoulda::Matchers::Pundit::ForbidMatcher do
     describe 'Guest' do
       let(:user) { nil }
 
-      wont { forbid :show }
       must { forbid :create, :update, :destroy }
     end
 
@@ -52,14 +48,12 @@ describe Shoulda::Matchers::Pundit::ForbidMatcher do
       let(:another_user) { User.new(1) }
       let(:article) { Article.new(another_user) }
 
-      wont { forbid :create, :show }
       must { forbid :update, :destroy }
     end
 
     describe 'Article Creater' do
       let(:user) { User.new(1) }
 
-      wont { forbid :create, :show, :update }
       must { forbid :destroy }
     end
 
