@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'rake/testtask'
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
 
 Rake::TestTask.new do |t|
   t.libs << "spec"
