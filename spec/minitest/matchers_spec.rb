@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'support/minitest_helper'
 
 describe Shoulda::Matchers::Pundit::PermitMatcher do
 
